@@ -10,12 +10,24 @@ const colors = [
 ];
 const startBtn = document.querySelector('.js-start');
 const stopBtn = document.querySelector(".js-stop");
-let timerid = null;
-
-startBtn.addEventListener('click', () => {
-    timerId = setInterval(changeCollor, 2000);
-})
-        
+const delay = 500;
+let timerId = null;
+       
 const randomIntegerFromInterval = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
-};        
+};
+startBtn.addEventListener('click', onStartBtn);
+stopBtn.addEventListener('click', onStopBtn);
+
+function onStartBtn() {
+  timerId = setInterval(changeColor, delay)
+  startBtn.disabled = true
+}
+function changeColor() {
+  const colorId = randomIntegerFromInterval(0, colors.length - 1);
+  document.body.style.setProperty('background-color', colors[colorId]);
+}
+function onStopBtn() {
+  clearInterval(timerId);
+  startBtn.disabled = false;
+}
